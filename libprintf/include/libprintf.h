@@ -6,7 +6,7 @@
 /*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 13:37:06 by maginist          #+#    #+#             */
-/*   Updated: 2019/07/23 17:55:20 by maginist         ###   ########.fr       */
+/*   Updated: 2019/08/23 10:44:29 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_tabdel(char **tab);
 void				ft_puttab(char **tab);
 size_t				ft_tab3size(void ***tab);
+int					ft_tab2size(void **tab);
 int					ft_strsearch(char *src, char c);
 int					ft_charstr(char *s1, char *s2);
 long				ft_atoll(const char *str);
