@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maginist <maginist@student.42.fr>          +#+  +:+       +#+         #
+#    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 09:46:56 by maginist          #+#    #+#              #
-#    Updated: 2019/07/23 18:10:00 by maginist         ###   ########.fr        #
+#    Updated: 2019/09/12 16:20:30 by floblanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ FILES = add_pre_flgs.c\
 	  ft_memset.c\
 	  ft_bzero.c\
 	  ft_itoa_base.c\
+	  ft_atoi_base.c\
 	  ft_charstr.c\
 	  ft_memcpy.c\
 	  ft_memccpy.c\

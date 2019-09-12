@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libprintf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 13:37:06 by maginist          #+#    #+#             */
-/*   Updated: 2019/08/23 10:44:29 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/12 15:48:14 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char				*fillbegin(char *num, t_data *data);
 void				gest_allnum(char *num, t_data *data);
 void				printpreci(int size);
 unsigned int		ft_abs(int nb);
+int					ft_atoi_base(char *str, char *base, char *prefix);
 int					get_next_line_mod(const int fd, char **line);
 int					get_next_line(const int fd, char **line);
 void				*ft_memset(void *b, int c, size_t len);

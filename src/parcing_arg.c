@@ -3,16 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/08/23 11:24:47 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/12 17:21:45 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int		recup_grid(t_map *map)
+int		recup_grid(t_map *map, t_stock *cur, int i)
+{
+	int		word;
+	int		letter;
+
+	word = -1;
+	while (++word < cur->width)
+	{
+		letter = 0;
+		while (cur->data[word][letter] && cur->data[word][letter] != ',')
+			letter++;
+		if (cur->data[word][letter])
+			map->color[word][i] = ft_atoi_base(cur->data[word] + letter + 1
+			, "0123456789ABCDEF", "0x");
+		else
+			map->color[word][i] = 0xFFFFFF00;
+		cur->data[word][letter] = 0;
+		letter = 0;
+		if (cur->data[word][letter] == '-')
+			letter++;
+		while (ft_isdigit(cur->data[word][letter]))
+			letter++;
+		if (cur->data[word][letter] || letter > 10 || ft_atol(cur->data[word])
+			> 2147483647 || ft_atol(cur->data[word]) < -2147483648)
+			return (0);
+		map->grid[word][i] = ft_atoi(cur->data[word]);
+	}
+}
+
+int		init_grid(t_map *map)
 {
 	int	i;
 	t_stock *cur;
@@ -22,11 +51,18 @@ int		recup_grid(t_map *map)
 		return (0);
 	if (map->color = (int**)malloc(sizeof(int*) * map->max_y))
 		return (0);
-	i = 0;
-	while (cur)
+	i = -1;
+	while (++i < map->max_y)
 	{
-
+		if (map->grid[i] = (int*)malloc(sizeof(int) * map->max_x))
+			return (0);
+		if (map->color[i] = (int*)malloc(sizeof(int) * map->max_x))
+			return (0);
+		if (!(recup_grid(map, cur, i)))
+			return (0);
+		cur = cur->next;
 	}
+	return (1);
 }
 
 int		parce_and_stock(char *line, t_map *map)
@@ -78,7 +114,7 @@ int     parcing_arg(char **av, t_map *map)
 			return (0);
 	}
     ft_strdel(&line);
-	if (!(recup_grid(map)))
+	if (!(init_grid(map)))
 		return (0);
 	return (1);
 }
