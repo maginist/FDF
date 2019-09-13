@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/08/23 11:21:55 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/13 16:15:47 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct		s_map
 {
     int				**grid;
 	int 			**color;
+	char			*name;
     int				max_x;
 	int				max_y;
 	int				error;
@@ -36,5 +37,6 @@ typedef struct		s_map
 
 int				main(int ac, char **av);
 int				parcing_arg(char **av, t_map *map);
+void			run_fdf(t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/12 17:21:45 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/13 16:01:01 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		recup_grid(t_map *map, t_stock *cur, int i)
 			map->color[word][i] = ft_atoi_base(cur->data[word] + letter + 1
 			, "0123456789ABCDEF", "0x");
 		else
-			map->color[word][i] = 0xFFFFFF00;
+			map->color[word][i] = 0xFFFFFF;
 		cur->data[word][letter] = 0;
 		letter = 0;
 		if (cur->data[word][letter] == '-')
@@ -41,7 +41,7 @@ int		recup_grid(t_map *map, t_stock *cur, int i)
 	}
 }
 
-int		init_grid(t_map *map)
+int		init_grid(t_map *map, char *file)
 {
 	int	i;
 	t_stock *cur;
@@ -62,6 +62,11 @@ int		init_grid(t_map *map)
 			return (0);
 		cur = cur->next;
 	}
+	i = ft_strlen(file) - 5;
+	file[i--] = '\0';
+	while (file[i] != '/' && i > 0)
+		i--;
+	map->name = ft_strdup(file + i);
 	return (1);
 }
 
@@ -88,21 +93,20 @@ int		parce_and_stock(char *line, t_map *map)
 			cur = cur->next;
 		cur->next = new;
 	}
-	map->max_y++;	
+	map->max_y++;
+	return (1);
 }
 
-int     parcing_arg(char **av, t_map *map)
+int		gest_fdf_file(char *file, t_map *map)
 {
     int		i;
     int		fd;
     char	*line;
 
 	map->stock = 0;
-    i = ft_strlen(av[1]);
+    i = ft_strlen(file);
     line = 0;
-    if (ft_strcmp(av[1][i - 5], ".fdf"))
-        return (0);
-	if ((fd = open(av[1], O_RDONLY)) == -1)
+	if ((fd = open(file, O_RDONLY)) == -1)
 		return (0);
 	i = 0;
     while (get_next_line(fd, &line) > 0)
@@ -114,7 +118,25 @@ int     parcing_arg(char **av, t_map *map)
 			return (0);
 	}
     ft_strdel(&line);
-	if (!(init_grid(map)))
+	if (!(init_grid(map, file)))
 		return (0);
+	return (1);
+}
+
+int     parcing_arg(char **av, t_map *map)
+{
+	int	i;
+
+	i = 1;
+	while (av[i])
+	{
+		if (av[i][0] == '-' && !(is_a_flag(av[i], &i)))
+			return (0);
+		else if (ft_strlen(av[i] < 5)
+			|| ft_strcmp(av[i][ft_strlen(av[i]) - 5], ".fdf")
+			||  !(gest_fdf_file(av[i], map)))
+			return (0);
+		i++;
+	}
 	return (1);
 }

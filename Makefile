@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maginist <maginist@student.42.fr>          +#+  +:+       +#+         #
+#    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/21 10:08:34 by maginist          #+#    #+#              #
-#    Updated: 2019/08/21 10:10:54 by maginist         ###   ########.fr        #
+#    Updated: 2019/09/13 17:01:39 by floblanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ OBJ_PATH = ./obj
 INC = -I./includes
 
 LIB = libprintf/
+
+FDF_FLAGS = -I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
 CC = gcc
 
@@ -58,7 +60,7 @@ $(NAME) : $(OBJ_PATH) $(OBJ)
 		@echo "$(_GREEN)[ FDF DONE ]$(_END)"
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
-		@$(CC) $(CFLAGS) -I $(LIB) -c $? -o $@
+		@$(CC) $(CFLAGS) -I $(LIB) -c $? -o $@ $(FDF_FLAGS)
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
