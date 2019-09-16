@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/16 12:24:02 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/16 15:09:04 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,22 @@ int		init_grid(t_map *map, char *file)
 	t_stock *cur;
 
 	cur = map->stock;
-	if ((map->grid = (int**)malloc(sizeof(int*) * map->max_y)))
+	if (!(map->grid = (int**)malloc(sizeof(int*) * map->max_y)))
 		return (0);
-	if ((map->color = (int**)malloc(sizeof(int*) * map->max_y)))
+	if (!(map->color = (int**)malloc(sizeof(int*) * map->max_y)))
 		return (0);
 	i = -1;
 	while (++i < map->max_y)
 	{
-		if ((map->grid[i] = (int*)malloc(sizeof(int) * map->max_x)))
+		if (!(map->grid[i] = (int*)malloc(sizeof(int) * map->max_x)))
 			return (0);
-		if ((map->color[i] = (int*)malloc(sizeof(int) * map->max_x)))
-			return (0);
+		if (!(map->color[i] = (int*)malloc(sizeof(int) * map->max_x)))
+		
 		if (!(recup_grid(map, cur, i)))
 			return (0);
 		cur = cur->next;
 	}
-	i = ft_strlen(file) - 5;
+	i = ft_strlen(file) - 4;
 	file[i--] = '\0';
 	while (file[i] != '/' && i > 0)
 		i--;
@@ -120,7 +120,10 @@ int		gest_fdf_file(char *file, t_map *map)
 	}
     ft_strdel(&line);
 	if (!(init_grid(map, file)))
+	{
+		ft_printf("grid\n");
 		return (0);
+	}
 	return (1);
 }
 
@@ -134,9 +137,12 @@ int     parcing_arg(char **av, t_map *map)
 		if (av[i][0] == '-'/* && !(is_a_flag(av[i], &i))*/)
 			return (0);
 		else if (ft_strlen(av[i]) < 5
-			|| ft_strcmp(&(av[i][ft_strlen(av[i]) - 5]), ".fdf")
+			|| ft_strcmp(&(av[i][ft_strlen(av[i]) - 4]), ".fdf")
 			||  !(gest_fdf_file(av[i], map)))
+		{
+			ft_printf("coucou %s\n", &(av[i][ft_strlen(av[i]) - 4]));
 			return (0);
+		}
 		i++;
 	}
 	return (1);

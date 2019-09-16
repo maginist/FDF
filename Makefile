@@ -3,32 +3,36 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
+#    By: maginist <maginist@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/21 10:08:34 by maginist          #+#    #+#              #
-#    Updated: 2019/09/16 12:24:12 by floblanc         ###   ########.fr        #
+#    Updated: 2019/09/16 16:20:49 by maginist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ./fdf
+NAME = fdf
 
-SRC_NAME =	main.c			\
+SRC_NAME =	run_fdf.c 		\
 			parcing_arg.c	\
-			run_fdf.c
+			main.c			\
 
-SRC_PATH = ./src
+SRC_PATH = ./src/
 
-OBJ_PATH = ./obj
+OBJ_PATH = ./obj/
 
-INC = -I./includes
+INC_PATH = ./include/
+INC_NAME = fdf.h
 
-LIB = libprintf/
+
+LIBFT				=	./libprintf/
+LIBFTA				=	libprintf.a
+LIBFTINCLUDES		=	./libprintf/include/
 
 FDF_FLAGS = -I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra 
 
 # Colors
 CK = $'\033[30m$'
@@ -41,43 +45,41 @@ _CYAN = $'\033[36m$'
 _GREY = $'\033[37m$'
 _END=$'\033[0m$'
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
 
-SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+INC	=	$(addprefix $(INC_PATH), $(INC_NAME))
+SRC =	$(addprefix $(SRC_PATH), $(SRC_NAME))
+OBJ =	$(patsubst $(SRC_PATH)%.c, $(OBJ_PATH)%.o, $(SRC))
 
-OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+.PHONY :	all clean fclean re
 
-all : $(NAME)
+all: $(NAME)
 
-$(NAME) : $(OBJ_PATH) $(OBJ)
-		@make -C $(LIB) -j
-		@cp libprintf/libprintf.a .
-		@echo "$(_GREEN)[ LIBPRINTF DONE ]$(_END)"
+$(LIBFT)/$(LIBFTA):
+	@make -C $(LIBFT) -j 100
+	@echo "$(_GREEN)[ LIBPRINTF DONE ]$(_END)"
+
+$(NAME) : $(LIBFT)/$(LIBFTA) $(OBJ)
 		@echo "\n"
 		@echo "$(_RED)|_-_-_-_-_-_-_-_-_-_-_-_-|$(_END)"
-		@echo "|    COMPILING FDF        |"
+		@echo "|    COMPILING FDF       |"
 		@echo "$(_RED)|_-_-_-_-_-_-_-_-_-_-_-_-|$(_END)"
 		@echo "\n"
-		@$(CC) $(CFLAGS) $(FDF_FLAGS) -o $(NAME) $(OBJ) libprintf.a
+		@$(CC) $(FDF_FLAGS) -o $(NAME) $(OBJ) $(LIBFT)/$(LIBFTA)
 		@echo "$(_GREEN)[ FDF DONE ]$(_END)"
 
-$(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
-		@$(CC) $(CFLAGS) -I $(LIB) -c $? -o $@
-
-$(OBJ_PATH):
-	@mkdir -p $(OBJ_PATH)
-
 clean :
-	@make clean -C $(LIB)
+	@make clean -C $(LIBFT)
 	@rm -rf $(OBJ_PATH)
 	@echo "$(_BLUE)======< CLEAN PROJECT & LIBPRINTF DONE >======$(_END)"
 	@rm -f ./libprintf.a
 
 fclean : clean
-	@make fclean -C $(LIB)
+	@make fclean -C $(LIBFT)
 	@rm -f $(NAME)
 	@echo "$(_BLUE)======< FCLEAN PROJECT & LIBPRINTF DONE >======$(_END)"
 
 re : fclean all
 
-.PHONY : all clean fclean re
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
+	@mkdir -p $(OBJ_PATH)
+	@$(CC) -I $(LIBFTINCLUDES) -I $(INC_PATH) -c $< -o $@

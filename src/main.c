@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/13 17:24:31 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/16 15:31:27 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	free_stocking(t_stock **start)
 		free(before);
 		before = 0;
 	}
-	free(&(start));
 }
 
 int	free_map(t_map *map)
