@@ -6,13 +6,15 @@
 #    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/21 10:08:34 by maginist          #+#    #+#              #
-#    Updated: 2019/09/13 17:01:39 by floblanc         ###   ########.fr        #
+#    Updated: 2019/09/16 12:24:12 by floblanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ./fdf
 
-SRC_NAME = main.c
+SRC_NAME =	main.c			\
+			parcing_arg.c	\
+			run_fdf.c
 
 SRC_PATH = ./src
 
@@ -56,11 +58,11 @@ $(NAME) : $(OBJ_PATH) $(OBJ)
 		@echo "|    COMPILING FDF        |"
 		@echo "$(_RED)|_-_-_-_-_-_-_-_-_-_-_-_-|$(_END)"
 		@echo "\n"
-		@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) libprintf.a
+		@$(CC) $(CFLAGS) $(FDF_FLAGS) -o $(NAME) $(OBJ) libprintf.a
 		@echo "$(_GREEN)[ FDF DONE ]$(_END)"
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
-		@$(CC) $(CFLAGS) -I $(LIB) -c $? -o $@ $(FDF_FLAGS)
+		@$(CC) $(CFLAGS) -I $(LIB) -c $? -o $@
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)

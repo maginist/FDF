@@ -6,7 +6,7 @@
 #    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 09:46:56 by maginist          #+#    #+#              #
-#    Updated: 2019/09/12 16:20:30 by floblanc         ###   ########.fr        #
+#    Updated: 2019/09/16 12:24:15 by floblanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,6 +120,7 @@ FILES = add_pre_flgs.c\
 	  ft_tabdel.c\
 	  ft_puttab.c\
 	  ft_strsearch.c\
+	  ft_tab2size.c\
 	  ft_tab3size.c\
 	  ft_abs.c\
 	  get_next_line.c\

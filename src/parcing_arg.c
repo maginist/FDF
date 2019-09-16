@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/13 16:01:01 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/16 12:24:02 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		recup_grid(t_map *map, t_stock *cur, int i)
 			return (0);
 		map->grid[word][i] = ft_atoi(cur->data[word]);
 	}
+	return (1);
 }
 
 int		init_grid(t_map *map, char *file)
@@ -47,16 +48,16 @@ int		init_grid(t_map *map, char *file)
 	t_stock *cur;
 
 	cur = map->stock;
-	if (map->grid = (int**)malloc(sizeof(int*) * map->max_y))
+	if ((map->grid = (int**)malloc(sizeof(int*) * map->max_y)))
 		return (0);
-	if (map->color = (int**)malloc(sizeof(int*) * map->max_y))
+	if ((map->color = (int**)malloc(sizeof(int*) * map->max_y)))
 		return (0);
 	i = -1;
 	while (++i < map->max_y)
 	{
-		if (map->grid[i] = (int*)malloc(sizeof(int) * map->max_x))
+		if ((map->grid[i] = (int*)malloc(sizeof(int) * map->max_x)))
 			return (0);
-		if (map->color[i] = (int*)malloc(sizeof(int) * map->max_x))
+		if ((map->color[i] = (int*)malloc(sizeof(int) * map->max_x)))
 			return (0);
 		if (!(recup_grid(map, cur, i)))
 			return (0);
@@ -87,7 +88,7 @@ int		parce_and_stock(char *line, t_map *map)
 	else
 	{
 		if (ft_tab2size((void**)(new->data)) != map->max_x)
-			return (ft_error("Found wrong line length. Exiting.\n"));
+			return (0/*ft_error("Found wrong line length. Exiting.\n")*/);
 		cur = map->stock;
 		while (cur->next)
 			cur = cur->next;
@@ -130,10 +131,10 @@ int     parcing_arg(char **av, t_map *map)
 	i = 1;
 	while (av[i])
 	{
-		if (av[i][0] == '-' && !(is_a_flag(av[i], &i)))
+		if (av[i][0] == '-'/* && !(is_a_flag(av[i], &i))*/)
 			return (0);
-		else if (ft_strlen(av[i] < 5)
-			|| ft_strcmp(av[i][ft_strlen(av[i]) - 5], ".fdf")
+		else if (ft_strlen(av[i]) < 5
+			|| ft_strcmp(&(av[i][ft_strlen(av[i]) - 5]), ".fdf")
 			||  !(gest_fdf_file(av[i], map)))
 			return (0);
 		i++;
