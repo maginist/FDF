@@ -6,7 +6,7 @@
 /*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/16 15:31:27 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/18 18:21:50 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_stocking(t_stock **start)
 		cur = cur->next;
 		free(before);
 		before = 0;
-	}
+	} 
 }
 
 int	free_map(t_map *map)
@@ -42,6 +42,8 @@ void	init_map(t_map *map)
 	map->grid = 0;
 	map->max_x = 0;
 	map->max_y = 0;
+	map->mlx_ptr = 0;
+	map->wind = 0;
 }
 
 int main(int ac, char **av)
