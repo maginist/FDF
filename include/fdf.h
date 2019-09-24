@@ -6,7 +6,7 @@
 /*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/18 18:21:52 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/24 18:02:44 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,16 @@ typedef struct		s_map
 	char			*name;
     int				max_x;
 	int				max_y;
+	int				x1;
+	int				y1;
+	int				dx;
+	int				dy;
+	int				dp;
+	int				e;
+	int				ne;
 	int				error;
+	int				scale;
+	int				move;
 	t_stock			*stock;
 }					t_map;
 

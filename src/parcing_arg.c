@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/17 16:18:50 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/24 15:58:55 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ int		recup_grid(t_map *map, t_stock *cur, int i)
 	int		letter;
 
 	word = -1;
-	ft_printf("word = %d && cur->width = %d\n", word, cur->width);
 	while (++word < cur->width)
 	{
-		//ft_printf("word = %s\n", cur->data[word]);
 		letter = 0;
 		while (cur->data[word][letter] && cur->data[word][letter] != ',')
 			letter++;
@@ -40,7 +38,6 @@ int		recup_grid(t_map *map, t_stock *cur, int i)
 			> 2147483647 || ft_atol(cur->data[word]) < -2147483648)
 			return (0);
 		map->grid[i][word] = ft_atoi(cur->data[word]);
-		//ft_printf("word = %s\n", cur->data[word]);
 	}
 	return (1);
 }
@@ -56,7 +53,6 @@ int		init_grid(t_map *map, char *file)
 	if (!(map->color = (int**)malloc(sizeof(int*) * map->max_y)))
 		return (0);
 	i = -1;
-	ft_printf("i = %d et map->max_y = %d\n", i + 1, map->max_y);
 	while (++i < map->max_y)
 	{
 		if (!(map->grid[i] = (int*)malloc(sizeof(int) * map->max_x)))
@@ -85,7 +81,6 @@ int		parce_and_stock(char *line, t_map *map)
 	new->data = ft_strsplit(line, ' ');
 	new->next = 0;
 	new->width = ft_tab2size((void**)(new->data));
-	ft_printf("line : %s -> width = %d\n",line, new->width);
 	if (!(map->stock))
 	{
 		map->stock = new;
@@ -126,10 +121,7 @@ int		gest_fdf_file(char *file, t_map *map)
 	}
     ft_strdel(&line);
 	if (!(init_grid(map, file)))
-	{
-		ft_printf("grid\n");
 		return (0);
-	}
 	return (1);
 }
 
@@ -145,10 +137,7 @@ int     parcing_arg(char **av, t_map *map)
 		else if (ft_strlen(av[i]) < 5
 			|| ft_strcmp(&(av[i][ft_strlen(av[i]) - 4]), ".fdf")
 			||  !(gest_fdf_file(av[i], map)))
-		{
-			ft_printf("coucou %s\n", &(av[i][ft_strlen(av[i]) - 4]));
 			return (0);
-		}
 		i++;
 	}
 	return (1);

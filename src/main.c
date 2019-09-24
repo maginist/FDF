@@ -6,7 +6,7 @@
 /*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/18 18:21:50 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/24 17:41:24 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ void	init_map(t_map *map)
 	map->grid = 0;
 	map->max_x = 0;
 	map->max_y = 0;
+	map->x1 = 0;
+	map->y1 = 0;
 	map->mlx_ptr = 0;
 	map->wind = 0;
+	map->move = 20;
+	map->scale = 40;
 }
 
 int main(int ac, char **av)
