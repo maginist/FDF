@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:39:29 by floblanc          #+#    #+#             */
-/*   Updated: 2019/09/12 17:14:57 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:58:15 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int		parser(char *base, int size)
 
 int		ft_atoi_base(char *str, char *base, char *prefix)
 {
-    int i;
-    int	res;
-    int size;
+	int i;
+	int	res;
+	int size;
 
 	i = 0;
 	res = 0;
@@ -60,12 +60,12 @@ int		ft_atoi_base(char *str, char *base, char *prefix)
 		|| str[i] == '\f' || str[i] == ' ')
 		i++;
 	if (prefix && ft_strncmp(str + i, prefix, ft_strlen(prefix)))
-       return (0);
+		return (0);
 	if (prefix)
- 	   i += ft_strlen(prefix);
+		i += ft_strlen(prefix);
 	while (str[i] == base[0])
 		i++;
-    while (str[i] && ft_charstr(&(str[i]), base))
-		res = (res * size) + find_index(str[i], base);
+	while (str[i] && ft_charstr(&(str[i]), base))
+		res = (res * size) + find_index(str[i++], base);
 	return (res);
 }
