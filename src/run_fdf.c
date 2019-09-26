@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/09/26 15:06:00 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/26 16:26:06 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,17 @@ void	write_big_pixel(t_map *map, int x, int y, int i)
 	, map->color[i / map->max_x][i % map->max_x]);
 }
 
+int		key_act(int key, t_map *map)
+{
+	ft_printf("key = %d\n", key);
+	if (key == 53)
+	{
+		mlx_destroy_window (map->mlx_ptr, map->wind);
+		exit (0);
+	}
+	return (0);
+}
+
 void    run_fdf(t_map *map)
 {
     int i;
@@ -176,5 +187,6 @@ void    run_fdf(t_map *map)
 			select_seg_sens(map, x, y, i + 1);
         i++;           
     }
-    mlx_loop(map->mlx_ptr);
+	mlx_key_hook(map->wind, key_act, map);
+	mlx_loop(map->mlx_ptr);
 }
