@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_fdf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/09/25 18:08:41 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/26 12:19:36 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    seg_top_left_writer(t_map *m, int x0, int y0, int i)
 	m->dp = (m->dx >= m->dy ? 2 * m->dy - m->dx : 2 * m->dx - m->dy);
 	m->e = (m->dx >= m->dy ? 2 * m->dy : 2 * m->dx);
 	m->ne = (m->dx >= m->dy ? 2 * (m->dy - m->dx) : 2 * (m->dx - m->dy));
-	while (y0 > m->y1)
+	while (y0 > m->y1 || x0 > m->x1)
     {
         if (m->dp <= 0) /* On choisit le point E */
         {
@@ -48,7 +48,7 @@ void    seg_left_down_writer(t_map *m, int x0, int y0, int i)
 	m->dp = (m->dx >= m->dy ? 2 * m->dy - m->dx : 2 * m->dx - m->dy);
 	m->e = (m->dx >= m->dy ? 2 * m->dy : 2 * m->dx);
 	m->ne = (m->dx >= m->dy ? 2 * (m->dy - m->dx) : 2 * (m->dx - m->dy));
-	while (m->x1 < x0)
+	while (m->x1 < x0 || y0 < m->y1)
     {
         if (m->dp <= 0) /* On choisit le point E */
         {
@@ -76,7 +76,7 @@ void    seg_down_right_writer(t_map *m, int x0, int y0, int i)
 	m->dp = (m->dx >= m->dy ? 2 * m->dy - m->dx : 2 * m->dx - m->dy);
 	m->e = (m->dx >= m->dy ? 2 * m->dy : 2 * m->dx);
 	m->ne = (m->dx >= m->dy ? 2 * (m->dy - m->dx) : 2 * (m->dx - m->dy));
-	while (m->y1 > y0)
+	while (m->y1 > y0 || x0 < m->x1)
     {
         if (m->dp <= 0) /* On choisit le point E */
         {
@@ -104,7 +104,7 @@ void    seg_rigth_top_writer(t_map *m, int x0, int y0, int i)
 	m->dp = (m->dx >= m->dy ? 2 * m->dy - m->dx : 2 * m->dx - m->dy);
 	m->e = (m->dx >= m->dy ? 2 * m->dy : 2 * m->dx);
 	m->ne = (m->dx >= m->dy ? 2 * (m->dy - m->dx) : 2 * (m->dx - m->dy));
-	while (x0 < m->x1)
+	while (x0 < m->x1 || y0 > m->y1)
     {
         if (m->dp <= 0) /* On choisit le point E */
         {
