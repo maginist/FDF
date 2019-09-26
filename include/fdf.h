@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/26 15:11:45 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/26 19:10:43 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ typedef struct		s_stock
 
 typedef struct		s_map
 {
-    int				**grid;
-	int 			**color;
+	int				**grid;
+	int				**color;
 	void			*mlx_ptr;
 	void			*wind;
 	char			*name;
-    int				max_x;
+	int				max_x;
 	int				max_y;
 	int				x1;
 	int				y1;
@@ -47,8 +47,9 @@ typedef struct		s_map
 	t_stock			*stock;
 }					t_map;
 
-int				main(int ac, char **av);
-int				parsing_arg(char **av, t_map *map);
-void			run_fdf(t_map *map);
+int					main(int ac, char **av);
+int					parsing_arg(char **av, t_map *map);
+void				run_fdf(t_map *map);
+void				select_seg_sens(t_map *map, int x, int y, int i);
 
 #endif

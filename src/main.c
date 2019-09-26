@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/26 16:50:58 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/26 19:17:20 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_stocking(t_stock **start)
 	}
 }
 
-int	free_map(t_map *map)
+int		free_map(t_map *map)
 {
 	free(map);
 	return (0);
@@ -53,20 +53,23 @@ void	init_map(t_map *map)
 	map->ne = 0;
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
-    t_map   *map;
+	t_map	*map;
 
-    if (ac < 2)
-        return (0);
-    if (!(map = (t_map*)malloc(sizeof(t_map) * 1)))
-        return (0);
+	if (ac < 2)
+		return (0);
+	if (!(map = (t_map*)malloc(sizeof(t_map) * 1)))
+		return (0);
 	init_map(map);
-    if (!(parsing_arg(av, map)))
-        return (free_map(map));
-	map->scale = (970 / map->max_x >= 540 / map->max_y ? 970 / map->max_x : 540 / map->max_y) + 1;
+	if (!(parsing_arg(av, map)))
+		return (free_map(map));
+	map->scale = (970 / map->max_x >= 540 / map->max_y ? 970
+	/ map->max_x : 540 / map->max_y) + 1;
 	map->move_x = 970 - (map->max_x * map->scale / 2);
 	map->move_y = 540 - (map->max_y * map->scale / 2);
+	map->mlx_ptr = mlx_init();
+	map->wind = mlx_new_window(map->mlx_ptr, 1920, 1080, map->name);
 	free_stocking(&(map->stock));
 	run_fdf(map);
 	return (0);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
+#    By: maginist <maginist@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/21 10:08:34 by maginist          #+#    #+#              #
-#    Updated: 2019/09/16 16:20:50 by floblanc         ###   ########.fr        #
+#    Updated: 2019/09/26 19:06:22 by maginist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = fdf
 SRC_NAME =	run_fdf.c 		\
 			parcing_arg.c	\
 			main.c			\
+			algo_segment.c 	\
 
 SRC_PATH = ./src/
 

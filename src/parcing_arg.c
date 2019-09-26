@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/26 15:11:33 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/26 19:30:24 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		parse_split(t_stock *cur, int letter, int word)
 	while (ft_isdigit(cur->data[word][letter]))
 		letter++;
 	if (cur->data[word][letter] || letter > 10 || ft_atol(cur->data[word])
-	> 2147483647 || ft_atol(cur->data[word]) < -2147483648)
+			> 2147483647 || ft_atol(cur->data[word]) < -2147483648)
 		return (0);
 	return (1);
 }
@@ -40,9 +40,9 @@ int		recup_grid(t_map *map, t_stock *cur, int i)
 		if (cur->data[word][letter])
 		{
 			if (!(map->color[i][word] = ft_atoi_base(cur->data[word] + letter
-			+ 1 , "0123456789ABCDEF", "0x")))
+							+ 1, "0123456789ABCDEF", "0x")))
 				map->color[i][word] = ft_atoi_base(cur->data[word] + letter + 1
-				, "0123456789abcdef", "0x");
+						, "0123456789abcdef", "0x");
 		}
 		else
 			map->color[i][word] = 0xFFFFFF;
@@ -55,8 +55,8 @@ int		recup_grid(t_map *map, t_stock *cur, int i)
 
 int		init_grid(t_map *map, char *file)
 {
-	int	i;
-	t_stock *cur;
+	int		i;
+	t_stock	*cur;
 
 	cur = map->stock;
 	if (!(map->grid = (int**)malloc(sizeof(int*) * map->max_y)))
@@ -100,7 +100,7 @@ int		parse_and_stock(char *line, t_map *map)
 	else
 	{
 		if (new->width != map->max_x)
-			return (0/*ft_error("Found wrong line length. Exiting.\n")*/);
+			return (0);
 		cur = map->stock;
 		while (cur->next)
 			cur = cur->next;
@@ -112,17 +112,17 @@ int		parse_and_stock(char *line, t_map *map)
 
 int		gest_fdf_file(char *file, t_map *map)
 {
-    int		i;
-    int		fd;
-    char	*line;
+	int		i;
+	int		fd;
+	char	*line;
 
 	map->stock = 0;
-    i = ft_strlen(file);
-    line = 0;
+	i = ft_strlen(file);
+	line = 0;
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (0);
 	i = 0;
-    while (get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (parse_and_stock(line, map) == 0)
 			map->error = 1;
@@ -130,24 +130,24 @@ int		gest_fdf_file(char *file, t_map *map)
 		if (map->error == 1)
 			return (0);
 	}
-    ft_strdel(&line);
+	ft_strdel(&line);
 	if (!(init_grid(map, file)))
 		return (0);
 	return (1);
 }
 
-int     parsing_arg(char **av, t_map *map)
+int		parsing_arg(char **av, t_map *map)
 {
 	int	i;
 
 	i = 1;
 	while (av[i])
 	{
-		if (av[i][0] == '-'/* && !(is_a_flag(av[i], &i))*/)
+		if (av[i][0] == '-')
 			return (0);
 		else if (ft_strlen(av[i]) < 5
-			|| ft_strcmp(&(av[i][ft_strlen(av[i]) - 4]), ".fdf")
-			||  !(gest_fdf_file(av[i], map)))
+				|| ft_strcmp(&(av[i][ft_strlen(av[i]) - 4]), ".fdf")
+				|| !(gest_fdf_file(av[i], map)))
 			return (0);
 		i++;
 	}
