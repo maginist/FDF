@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/24 18:02:44 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/09/26 15:11:45 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ typedef struct		s_map
 	int				ne;
 	int				error;
 	int				scale;
-	int				move;
+	int				move_x;
+	int				move_y;
 	t_stock			*stock;
 }					t_map;
 
 int				main(int ac, char **av);
-int				parcing_arg(char **av, t_map *map);
+int				parsing_arg(char **av, t_map *map);
 void			run_fdf(t_map *map);
 
 #endif

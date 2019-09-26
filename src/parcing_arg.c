@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/25 17:59:42 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/26 15:11:33 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+
+int		parse_split(t_stock *cur, int letter, int word)
+{
+	cur->data[word][letter] = 0;
+	letter = 0;
+	if (cur->data[word][letter] == '-')
+		letter++;
+	while (ft_isdigit(cur->data[word][letter]))
+		letter++;
+	if (cur->data[word][letter] || letter > 10 || ft_atol(cur->data[word])
+	> 2147483647 || ft_atol(cur->data[word]) < -2147483648)
+		return (0);
+	return (1);
+}
 
 int		recup_grid(t_map *map, t_stock *cur, int i)
 {
@@ -24,18 +38,15 @@ int		recup_grid(t_map *map, t_stock *cur, int i)
 		while (cur->data[word][letter] && cur->data[word][letter] != ',')
 			letter++;
 		if (cur->data[word][letter])
-			map->color[i][word] = ft_atoi_base(cur->data[word] + letter + 1
-			, "0123456789ABCDEF", "0x");
+		{
+			if (!(map->color[i][word] = ft_atoi_base(cur->data[word] + letter
+			+ 1 , "0123456789ABCDEF", "0x")))
+				map->color[i][word] = ft_atoi_base(cur->data[word] + letter + 1
+				, "0123456789abcdef", "0x");
+		}
 		else
 			map->color[i][word] = 0xFFFFFF;
-		cur->data[word][letter] = 0;
-		letter = 0;
-		if (cur->data[word][letter] == '-')
-			letter++;
-		while (ft_isdigit(cur->data[word][letter]))
-			letter++;
-		if (cur->data[word][letter] || letter > 10 || ft_atol(cur->data[word])
-			> 2147483647 || ft_atol(cur->data[word]) < -2147483648)
+		if (!(parse_split(cur, letter, word)))
 			return (0);
 		map->grid[i][word] = ft_atoi(cur->data[word]);
 	}
@@ -71,7 +82,7 @@ int		init_grid(t_map *map, char *file)
 	return (1);
 }
 
-int		parce_and_stock(char *line, t_map *map)
+int		parse_and_stock(char *line, t_map *map)
 {
 	t_stock	*new;
 	t_stock	*cur;
@@ -113,7 +124,7 @@ int		gest_fdf_file(char *file, t_map *map)
 	i = 0;
     while (get_next_line(fd, &line) > 0)
 	{
-		if (parce_and_stock(line, map) == 0)
+		if (parse_and_stock(line, map) == 0)
 			map->error = 1;
 		ft_strdel(&line);
 		if (map->error == 1)
@@ -125,7 +136,7 @@ int		gest_fdf_file(char *file, t_map *map)
 	return (1);
 }
 
-int     parcing_arg(char **av, t_map *map)
+int     parsing_arg(char **av, t_map *map)
 {
 	int	i;
 
