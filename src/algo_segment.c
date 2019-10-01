@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_segment.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 19:00:19 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/01 16:36:42 by maginist         ###   ########.fr       */
+/*   Updated: 2019/10/01 17:16:09 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,11 @@ void	seg_rigth_top_writer(t_map *m, int x0, int y0, int i)
 void	select_seg_sens(t_map *map, int x, int y, int i)
 {
 	map->x1 = (i % map->max_x) * map->scale
-	- (map->grid[i / map->max_x][i % map->max_x] * (map->scale / 50 + 1))
+	- (map->grid[i / map->max_x][i % map->max_x] * (map->scale * map->height / 50 + 1))
 	+ map->move_x;
 	map->y1 = (i / map->max_x) * map->scale
 	- (map->grid[i / map->max_x][i % map->max_x]
-	* (map->scale / 50 + 1)) + map->move_y;
+	* (map->scale * map->height / 50 + 1)) + map->move_y;
 	if (x < map->x1 && y >= map->y1)
 		seg_rigth_top_writer(map, x, y, i);
 	else if (x <= map->x1 && y < map->y1)

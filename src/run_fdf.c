@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_fdf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/01 16:37:09 by maginist         ###   ########.fr       */
+/*   Updated: 2019/10/01 17:16:39 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	write_pixel(t_map *map, int x, int y, int i)
 	int y0;
 
 	x0 = (i % map->max_x) * map->scale
-		- (map->grid[i / map->max_x][i % map->max_x] * (map->scale / 50 + 1))
+		- (map->grid[i / map->max_x][i % map->max_x] * (map->scale * map->height / 50 + 1))
 		+ map->move_x;
 	y0 = (i / map->max_x) * map->scale
-		- (map->grid[i / map->max_x][i % map->max_x] * (map->scale / 50 + 1))
+		- (map->grid[i / map->max_x][i % map->max_x] * (map->scale * map->height / 50 + 1))
 		+ map->move_y;
 	if (y >= 0 && y <= 1080 && x >= 0 && x <= 1920)
 		*(int *)&map->canvas[y * map->size_line + (x * 4)] = map->color[i / map->max_x][i % map->max_x];
@@ -55,6 +55,10 @@ int		key_act(int key, t_map *map)
 		map->move_x += 5;
 	if (key == 125)
 		map->move_y += 5;
+	if (key == 83)
+		map->height--;
+	if (key == 85)
+		map->height++;
 	run_fdf(map);
 	return (1);
 }
@@ -71,10 +75,10 @@ void	run_fdf(t_map *map)
 	{
 		x = (i % map->max_x) * map->scale
 			- (map->grid[i / map->max_x][i % map->max_x]
-			* (map->scale / 50 + 1)) + map->move_x;
+			* (map->scale * map->height / 50 + 1)) + map->move_x;
 		y = (i / map->max_x) * map->scale
 			- (map->grid[i / map->max_x][i % map->max_x]
-			* (map->scale / 50 + 1)) + map->move_y;
+			* (map->scale * map->height / 50 + 1)) + map->move_y;
 		write_pixel(map, x, y, i);
 		if (i / map->max_x < map->max_y - 1)
 			select_seg_sens(map, x, y, i + map->max_x);
