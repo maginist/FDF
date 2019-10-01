@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_fdf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/09/26 19:32:16 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/30 16:45:40 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	write_pixel(t_map *map, int x, int y, int i)
 	y0 = (i / map->max_x) * map->scale
 		- (map->grid[i / map->max_x][i % map->max_x] * (map->scale / 50 + 1))
 		+ map->move_y;
-	mlx_pixel_put(map->mlx_ptr, map->wind, x0, y0
-			, map->color[i / map->max_x][i % map->max_x]);
+	*(int *)&map->canvas[y * map->size_line + (x * 4)] = map->color[i / map->max_x][i % map->max_x];
 }
 
 int		key_act(int key, t_map *map)
@@ -74,6 +73,7 @@ void	run_fdf(t_map *map)
 			select_seg_sens(map, x, y, i + 1);
 		i++;
 	}
+	mlx_put_image_to_window (map->mlx_ptr, map->wind, map->img, 0, 0);
 	mlx_key_hook(map->wind, key_act, map);
 	mlx_loop(map->mlx_ptr);
 }

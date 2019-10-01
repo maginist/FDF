@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/26 19:10:43 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/30 16:18:11 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ typedef struct		s_map
 	int				**color;
 	void			*mlx_ptr;
 	void			*wind;
+	void			*img;
+	char			*canvas;
+	int				bpp;
+	int				size_line;
+	int				endian;
 	char			*name;
 	int				max_x;
 	int				max_y;

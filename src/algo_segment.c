@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_segment.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 19:00:19 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/26 19:25:39 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/30 16:51:38 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	seg_top_left_writer(t_map *m, int x0, int y0, int i)
 			x0--;
 			y0--;
 		}
-		mlx_pixel_put(m->mlx_ptr, m->wind, x0, y0
-		, m->color[i / m->max_x][i % m->max_x]);
+		*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
 	}
 }
 
@@ -63,8 +62,7 @@ void	seg_left_down_writer(t_map *m, int x0, int y0, int i)
 			x0--;
 			y0++;
 		}
-		mlx_pixel_put(m->mlx_ptr, m->wind, x0, y0
-		, m->color[i / m->max_x][i % m->max_x]);
+		*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
 	}
 }
 
@@ -91,8 +89,7 @@ void	seg_down_right_writer(t_map *m, int x0, int y0, int i)
 			x0++;
 			y0++;
 		}
-		mlx_pixel_put(m->mlx_ptr, m->wind, x0, y0
-		, m->color[i / m->max_x][i % m->max_x]);
+		*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
 	}
 }
 
@@ -119,8 +116,7 @@ void	seg_rigth_top_writer(t_map *m, int x0, int y0, int i)
 			x0++;
 			y0--;
 		}
-		mlx_pixel_put(m->mlx_ptr, m->wind, x0, y0
-		, m->color[i / m->max_x][i % m->max_x]);
+		*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
 	}
 }
 

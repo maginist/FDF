@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/26 19:17:20 by maginist         ###   ########.fr       */
+/*   Updated: 2019/09/30 16:19:55 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	init_map(t_map *map)
 	map->dp = 0;
 	map->e = 0;
 	map->ne = 0;
+	map->img = 0;
+	map->canvas = 0;
 }
 
 int		main(int ac, char **av)
@@ -70,6 +72,8 @@ int		main(int ac, char **av)
 	map->move_y = 540 - (map->max_y * map->scale / 2);
 	map->mlx_ptr = mlx_init();
 	map->wind = mlx_new_window(map->mlx_ptr, 1920, 1080, map->name);
+	map->img = mlx_new_image (map->mlx_ptr, 1920, 1080.);
+	map->canvas =  mlx_get_data_addr (map->img, &(map->bpp), &(map->size_line), &(map->bpp));
 	free_stocking(&(map->stock));
 	run_fdf(map);
 	return (0);
