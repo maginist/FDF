@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/30 16:18:11 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:17:16 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <math.h>
 
 typedef struct		s_stock
 {
@@ -26,6 +27,9 @@ typedef struct		s_stock
 
 typedef struct		s_map
 {
+	int				alpha;
+	int				beta;
+	int				phi;
 	int				**grid;
 	int				**color;
 	void			*mlx_ptr;
@@ -56,5 +60,6 @@ int					main(int ac, char **av);
 int					parsing_arg(char **av, t_map *map);
 void				run_fdf(t_map *map);
 void				select_seg_sens(t_map *map, int x, int y, int i);
+int					free_map(t_map *map);
 
 #endif

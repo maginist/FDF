@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   run_fdf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/01 12:34:38 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:37:09 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+
+int red_cross(t_map *map)
+{
+	free_map(map);
+	exit(0);
+	return (0);
+}
 
 void	write_pixel(t_map *map, int x, int y, int i)
 {
@@ -34,6 +41,7 @@ int		key_act(int key, t_map *map)
 	{
 		mlx_destroy_window(map->mlx_ptr, map->wind);
 		exit(0);
+		return (0);
 	}
 	if (key == 69)
 		map->scale += 5;
@@ -48,7 +56,7 @@ int		key_act(int key, t_map *map)
 	if (key == 125)
 		map->move_y += 5;
 	run_fdf(map);
-	return (0);
+	return (1);
 }
 
 void	run_fdf(t_map *map)
@@ -75,6 +83,7 @@ void	run_fdf(t_map *map)
 		i++;
 	}
 	mlx_put_image_to_window (map->mlx_ptr, map->wind, map->img, 0, 0);
-	mlx_key_hook(map->wind, key_act, map);
+	mlx_hook(map->wind, 17, 0, red_cross, map);
+	mlx_hook(map->wind, 2, 0, key_act, map);
 	mlx_loop(map->mlx_ptr);
 }

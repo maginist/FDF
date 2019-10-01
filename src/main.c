@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/30 16:19:55 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:37:16 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ int		main(int ac, char **av)
 	map->canvas =  mlx_get_data_addr (map->img, &(map->bpp), &(map->size_line), &(map->bpp));
 	free_stocking(&(map->stock));
 	run_fdf(map);
+	free_map(map);
 	return (0);
 }
