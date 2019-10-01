@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/01 12:18:51 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:34:38 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	write_pixel(t_map *map, int x, int y, int i)
 	y0 = (i / map->max_x) * map->scale
 		- (map->grid[i / map->max_x][i % map->max_x] * (map->scale / 50 + 1))
 		+ map->move_y;
-	if (y * map->size_line >= 0 && y * map->size_line <= 1080 && x * 4 >= 0
-	&& x * 4 <=1920)
+	if (y >= 0 && y <= 1080 && x >= 0 && x <= 1920)
 		*(int *)&map->canvas[y * map->size_line + (x * 4)] = map->color[i / map->max_x][i % map->max_x];
 }
 

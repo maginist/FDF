@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 19:00:19 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/30 16:51:38 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:31:38 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	seg_top_left_writer(t_map *m, int x0, int y0, int i)
 			x0--;
 			y0--;
 		}
-		*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
+		if (y0 >= 0 && y0 <= 1080 && x0 >= 0 && x0 <= 1920)
+			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
 	}
 }
 
@@ -62,7 +63,8 @@ void	seg_left_down_writer(t_map *m, int x0, int y0, int i)
 			x0--;
 			y0++;
 		}
-		*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
+		if (y0 >= 0 && y0 <= 1080 && x0 >= 0 && x0 <= 1920)
+			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
 	}
 }
 
@@ -89,7 +91,8 @@ void	seg_down_right_writer(t_map *m, int x0, int y0, int i)
 			x0++;
 			y0++;
 		}
-		*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
+		if (y0 >= 0 && y0 <= 1080 && x0 >= 0 && x0 <= 1920)
+			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
 	}
 }
 
@@ -116,7 +119,8 @@ void	seg_rigth_top_writer(t_map *m, int x0, int y0, int i)
 			x0++;
 			y0--;
 		}
-		*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
+		if (y0 >= 0 && y0 <= 1080 && x0 >= 0 && x0 <= 1920)
+			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = m->color[i / m->max_x][i % m->max_x];
 	}
 }
 
