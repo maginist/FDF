@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/09/30 16:45:40 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:18:51 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	write_pixel(t_map *map, int x, int y, int i)
 	y0 = (i / map->max_x) * map->scale
 		- (map->grid[i / map->max_x][i % map->max_x] * (map->scale / 50 + 1))
 		+ map->move_y;
-	*(int *)&map->canvas[y * map->size_line + (x * 4)] = map->color[i / map->max_x][i % map->max_x];
+	if (y * map->size_line >= 0 && y * map->size_line <= 1080 && x * 4 >= 0
+	&& x * 4 <=1920)
+		*(int *)&map->canvas[y * map->size_line + (x * 4)] = map->color[i / map->max_x][i % map->max_x];
 }
 
 int		key_act(int key, t_map *map)
@@ -57,7 +59,7 @@ void	run_fdf(t_map *map)
 	int y;
 
 	i = 0;
-	mlx_clear_window(map->mlx_ptr, map->wind);
+	ft_bzero(map->canvas, 4 * 1920 * 1080);
 	while (i / map->max_x < map->max_y)
 	{
 		x = (i % map->max_x) * map->scale
