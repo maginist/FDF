@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/09/26 19:30:24 by maginist         ###   ########.fr       */
+/*   Updated: 2019/10/02 13:56:21 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int		parse_split(t_stock *cur, int letter, int word)
 		letter++;
 	if (cur->data[word][letter] || letter > 10 || ft_atol(cur->data[word])
 			> 2147483647 || ft_atol(cur->data[word]) < -2147483648)
+	{	
+		ft_printf("nb = %s\n", cur->data[word]);
 		return (0);
+	}
 	return (1);
 }
 
@@ -59,19 +62,22 @@ int		init_grid(t_map *map, char *file)
 	t_stock	*cur;
 
 	cur = map->stock;
-	if (!(map->grid = (int**)malloc(sizeof(int*) * map->max_y)))
+	if (!(map->grid = (double**)malloc(sizeof(double*) * map->max_y)))
 		return (0);
 	if (!(map->color = (int**)malloc(sizeof(int*) * map->max_y)))
 		return (0);
 	i = -1;
 	while (++i < map->max_y)
 	{
-		if (!(map->grid[i] = (int*)malloc(sizeof(int) * map->max_x)))
+		if (!(map->grid[i] = (double*)malloc(sizeof(double) * map->max_x)))
 			return (0);
 		if (!(map->color[i] = (int*)malloc(sizeof(int) * map->max_x)))
 			return (0);
 		if (!(recup_grid(map, cur, i)))
+		{
+			ft_printf("recup grid fail\n");
 			return (0);
+		}
 		cur = cur->next;
 	}
 	i = ft_strlen(file) - 4;
@@ -100,7 +106,10 @@ int		parse_and_stock(char *line, t_map *map)
 	else
 	{
 		if (new->width != map->max_x)
+		{
+			ft_printf("%d new -> %d max\n", new->width, map->max_x);
 			return (0);
+		}
 		cur = map->stock;
 		while (cur->next)
 			cur = cur->next;
@@ -132,7 +141,10 @@ int		gest_fdf_file(char *file, t_map *map)
 	}
 	ft_strdel(&line);
 	if (!(init_grid(map, file)))
+	{
+		ft_printf("init return (0)\n");
 		return (0);
+	}
 	return (1);
 }
 
@@ -148,7 +160,10 @@ int		parsing_arg(char **av, t_map *map)
 		else if (ft_strlen(av[i]) < 5
 				|| ft_strcmp(&(av[i][ft_strlen(av[i]) - 4]), ".fdf")
 				|| !(gest_fdf_file(av[i], map)))
+		{
+			ft_printf("big\n");
 			return (0);
+		}
 		i++;
 	}
 	return (1);

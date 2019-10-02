@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/01 17:16:09 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:06:12 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	init_map(t_map *map)
 	map->img = 0;
 	map->canvas = 0;
 	map->height = 1;
+	map->alpha = 0;
+	map->beta = 0;
+	map->phi = 0;
 }
 
 int		main(int ac, char **av)
@@ -68,7 +71,7 @@ int		main(int ac, char **av)
 	if (!(parsing_arg(av, map)))
 		return (free_map(map));
 	map->scale = (970 / map->max_x >= 540 / map->max_y ? 970
-	/ map->max_x : 540 / map->max_y) + 1;
+	/ map->max_x : 540 / map->max_y);
 	map->move_x = 970 - (map->max_x * map->scale / 2);
 	map->move_y = 540 - (map->max_y * map->scale / 2);
 	map->mlx_ptr = mlx_init();

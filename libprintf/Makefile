@@ -6,7 +6,7 @@
 #    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 09:46:56 by maginist          #+#    #+#              #
-#    Updated: 2019/09/16 12:24:15 by floblanc         ###   ########.fr        #
+#    Updated: 2019/10/02 11:32:38 by floblanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,7 +142,7 @@ SRC_PATH = ./src
 
 OBJ_NAME = $(FILES:.c=.o)
 
-CC = gcc
+CC = gcc -g3
 
 INC = -I./include
 

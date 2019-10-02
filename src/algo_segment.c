@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 19:00:19 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/01 17:16:09 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:34:45 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,19 @@ void	seg_rigth_top_writer(t_map *m, int x0, int y0, int i)
 
 void	select_seg_sens(t_map *map, int x, int y, int i)
 {
-	map->x1 = (i % map->max_x) * map->scale
-	- (map->grid[i / map->max_x][i % map->max_x] * (map->scale * map->height / 50 + 1))
-	+ map->move_x;
-	map->y1 = (i / map->max_x) * map->scale
-	- (map->grid[i / map->max_x][i % map->max_x]
-	* (map->scale * map->height / 50 + 1)) + map->move_y;
+	double	z;
+
+	z = map->grid[i / map->max_x][i % map->max_x] * map->height;
+	map->x1 = (int)(((i % map->max_x - map->max_x / 2) * cos(map->beta)
+		+ z * sin(map->beta)
+		+ (i % map->max_x - map->max_x / 2) * cos(map->phi)
+		- (i / map->max_x - map->max_y / 2) * sin(map->phi)) * map->scale)
+		+ map->move_x;
+	map->y1 = (int)(((i / map->max_x - map->max_y / 2) * cos(map->alpha)
+		- z * sin(map->alpha)
+		+ (i % map->max_x - map->max_x / 2) * sin(map->phi)
+		+ (i / map->max_x - map->max_y / 2) * cos(map->phi)) * map->scale)
+		+ map->move_y;
 	if (x < map->x1 && y >= map->y1)
 		seg_rigth_top_writer(map, x, y, i);
 	else if (x <= map->x1 && y < map->y1)

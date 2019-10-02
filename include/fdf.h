@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/01 17:16:09 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/02 11:17:16 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ typedef struct		s_stock
 
 typedef struct		s_map
 {
-	int				alpha;
-	int				beta;
-	int				phi;
-	int				**grid;
+	double			alpha;
+	double			beta;
+	double			phi;
+	double			**grid;
 	int				**color;
 	void			*mlx_ptr;
 	void			*wind;
@@ -40,7 +40,7 @@ typedef struct		s_map
 	int				size_line;
 	int				endian;
 	char			*name;
-	int				height;
+	double			height;
 	int				max_x;
 	int				max_y;
 	int				x1;
@@ -51,7 +51,7 @@ typedef struct		s_map
 	int				e;
 	int				ne;
 	int				error;
-	int				scale;
+	double			scale;
 	int				move_x;
 	int				move_y;
 	t_stock			*stock;
