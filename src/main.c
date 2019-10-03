@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/02 12:06:12 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:51:52 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int		main(int ac, char **av)
 		return (free_map(map));
 	map->scale = (970 / map->max_x >= 540 / map->max_y ? 970
 	/ map->max_x : 540 / map->max_y);
-	map->move_x = 970 - (map->max_x * map->scale / 2);
-	map->move_y = 540 - (map->max_y * map->scale / 2);
+	map->move_x = 970;
+	map->move_y = 540;
 	map->mlx_ptr = mlx_init();
 	map->wind = mlx_new_window(map->mlx_ptr, 1920, 1080, map->name);
 	map->img = mlx_new_image (map->mlx_ptr, 1920, 1080.);

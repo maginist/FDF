@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/02 11:17:16 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:44:02 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct		s_map
 	double			height;
 	int				max_x;
 	int				max_y;
-	int				x1;
-	int				y1;
+	double			x1;
+	double			y1;
 	int				dx;
 	int				dy;
 	int				dp;

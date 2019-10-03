@@ -6,11 +6,42 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/02 17:38:05 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:58:21 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+
+void    write_hud(t_map *map)
+{
+    int x;
+    int y;
+    x = 1600;
+    y = 200;
+    while (x++ < 1920)
+        mlx_pixel_put(map->mlx_ptr, map->wind, x, y, 0x00FFFF);
+    x = 1600;
+    while (y++ < 800)
+        mlx_pixel_put(map->mlx_ptr, map->wind, x, y, 0x00FFFF);
+    while (x++ < 1920)
+        mlx_pixel_put(map->mlx_ptr, map->wind, x, y, 0x00FFFF);
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 200, 0xFFFFFF, "~ HUD ~");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 250, 0xFFFFFF, "ZOOM");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 270, 0xFFFFFF, " + / -");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 320, 0xFFFFFF, "MOVEMENT");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 340, 0xFFFFFF, " arrows");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 390, 0xFFFFFF, "ROTATION");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 410, 0xFFFFFF, " x = 7 / 4");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 430, 0xFFFFFF, " y = 8 / 5");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 450, 0xFFFFFF, " z = 9 / 6");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 500, 0xFFFFFF, "HEIGHT");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 530, 0xFFFFFF, "1 / 3");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 580, 0xFFFFFF, "COLOR");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 610, 0xFFFFFF, "  C");
+    mlx_string_put(map->mlx_ptr, map->wind, 1740, 660, 0xFFFFFF, "POV");
+    mlx_string_put(map->mlx_ptr, map->wind, 1740, 690, 0xFFFFFF, " 2 ");    mlx_string_put(map->mlx_ptr, map->wind, 1740, 740, 0xFFFFFF, "CLOSE ");
+    mlx_string_put(map->mlx_ptr, map->wind, 1740, 770, 0xFFFFFF, " esc ");
+}
 
 int red_cross(t_map *map)
 {
@@ -21,21 +52,21 @@ int red_cross(t_map *map)
 
 void	write_pixel(t_map *map, int x, int y, int i)
 {
-	int x0;
-	int y0;
-	int	z;
+	double	x0;
+	double	y0;
+	double	z;
 
-	z = map->grid[i / map->max_x][i % map->max_x]  * map->height;
-	x0 = (int)(((i % map->max_x - map->max_x / 2) * cos(map->beta)
-		+ z * sin(map->beta)
-		+ (i % map->max_x - map->max_x / 2) * cos(map->phi)
-		- (i / map->max_x - map->max_y / 2) * sin(map->phi)) * map->scale)
-		+ map->move_x;
-	y0 = (int)(((i / map->max_x - map->max_y / 2) * cos(map->alpha)
-		- z * sin(map->alpha)
-		+ (i % map->max_x - map->max_x / 2) * sin(map->phi)
-		+ (i / map->max_x - map->max_y / 2) * cos(map->phi)) * map->scale)
-		+ map->move_y;
+	y0 = ((i / map->max_x - map->max_y / 2) * cos(map->alpha)
+		- map->grid[i / map->max_x][i % map->max_x] * map->height * sin(map->alpha)) * map->scale;
+	z = (i / map->max_x - map->max_y / 2) * sin(map->alpha)
+		+ map->grid[i / map->max_x][i % map->max_x] * map->height * cos(map->alpha);
+	x0 = ((i % map->max_x - map->max_x / 2) * cos(map->beta)
+		+ z * sin(map->beta)) * map->scale;
+	z = -(i % map->max_x - map->max_x / 2) * sin(map->beta)
+		+ z * cos(map->beta);
+	z = x0;
+	x0 = (x0 * cos(map->phi) - y0 * sin(map->phi)) + map->move_x;
+	y0 = (z * sin(map->phi) + y0 * cos(map->phi)) + map->move_y;
 	if (y >= 0 && y <= 1080 && x >= 0 && x <= 1920)
 		*(int *)&map->canvas[y * map->size_line + (x * 4)] = map->color[i / map->max_x][i % map->max_x];
 }
@@ -66,43 +97,46 @@ int		key_act(int key, t_map *map)
 	if (key == 85)
 		map->height += 0.1;
 	if (key == 86)
-		map->beta -= M_PI / 16;
+		map->beta -= M_PI / 24;
 	if (key == 89)
-		map->beta += M_PI / 16;
+		map->beta += M_PI / 24;
 	if (key == 91)
-		map->phi -= M_PI / 16;
+		map->phi -= M_PI / 24;
 	if (key == 87)
-		map->phi += M_PI / 16;
+		map->phi += M_PI / 24;
 	if (key == 92)
-		map->alpha -= M_PI / 16;
+		map->alpha -= M_PI / 24;
 	if (key == 88)
-		map->alpha += M_PI / 16;
+		map->alpha += M_PI / 24;
+	map->alpha = (cos(map->alpha) != 1 ? map->alpha : 0);
+	map->beta = (cos(map->beta) != 1 ? map->beta : 0);
+	map->phi = (cos(map->phi) != 1 ? map->phi : 0);
 	run_fdf(map);
 	return (1);
 }
 
 void	run_fdf(t_map *map)
 {
-	int i;
-	int x;
-	int y;
-	int	z;
+	int		i;
+	double	x;
+	double	y;
+	double	z;
 
 	i = 0;
 	ft_bzero(map->canvas, 4 * 1920 * 1080);
 	while (i / map->max_x < map->max_y)
 	{
-		z = map->grid[i / map->max_x][i % map->max_x] * map->height;
-		x = (int)(((i % map->max_x - map->max_x / 2) * cos(map->beta)
-		+ z * sin(map->beta)
-		+ (i % map->max_x - map->max_x / 2) * cos(map->phi)
-		- (i / map->max_x - map->max_y / 2) * sin(map->phi)) * map->scale)
-		+ map->move_x;
-		y = (int)(((i / map->max_x - map->max_y / 2) * cos(map->alpha)
-		- z * sin(map->alpha)
-		+ (i % map->max_x - map->max_x / 2) * sin(map->phi)
-		+ (i / map->max_x - map->max_y / 2) * cos(map->phi)) * map->scale)
-		+ map->move_y;
+	y = ((i / map->max_x - map->max_y / 2) * cos(map->alpha)
+		- map->grid[i / map->max_x][i % map->max_x] * map->height * sin(map->alpha)) * map->scale;
+	z = (i / map->max_x - map->max_y / 2) * sin(map->alpha)
+		+ map->grid[i / map->max_x][i % map->max_x] * map->height * cos(map->alpha);
+	x = ((i % map->max_x - map->max_x / 2) * cos(map->beta)
+		+ z * sin(map->beta)) * map->scale;
+	z = -(i % map->max_x - map->max_x / 2) * sin(map->beta)
+		+ z * cos(map->beta);
+	z = x;
+	x = (x * cos(map->phi) - y * sin(map->phi)) + map->move_x;
+	y = (z * sin(map->phi) + y * cos(map->phi)) + map->move_y;
 		write_pixel(map, x, y, i);
 		if (i / map->max_x < map->max_y - 1)
 			select_seg_sens(map, x, y, i + map->max_x);
@@ -110,8 +144,11 @@ void	run_fdf(t_map *map)
 			select_seg_sens(map, x, y, i + 1);
 		i++;
 	}
-	ft_printf("cos(%f)/sin = %f && %f\n", map->phi, cos(map->phi), sin(map->phi));
+	ft_printf("\nalpha = %f : cos = %f | sin = %f\n", map->alpha, cos(map->alpha), sin(map->alpha));
+	ft_printf("beta = %f : cos = %f | sin = %f\n", map->beta, cos(map->beta), sin(map->beta));
+	ft_printf("phi = %f : cos = %f | sin = %f\n", map->phi, cos(map->phi), sin(map->phi));
 	mlx_put_image_to_window (map->mlx_ptr, map->wind, map->img, 0, 0);
+	write_hud(map);
 	mlx_hook(map->wind, 17, 0, red_cross, map);
 	mlx_hook(map->wind, 2, 0, key_act, map);
 	mlx_loop(map->mlx_ptr);
