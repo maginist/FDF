@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_fdf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/03 16:29:59 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/03 16:52:55 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    write_hud(t_map *map)
     while (x++ < 1920)
         mlx_pixel_put(map->mlx_ptr, map->wind, x, y, 0x00FFFF);
     x = 1600;
-    while (y++ < 800)
+    while (y++ < 900)
         mlx_pixel_put(map->mlx_ptr, map->wind, x, y, 0x00FFFF);
     while (x++ < 1920)
         mlx_pixel_put(map->mlx_ptr, map->wind, x, y, 0x00FFFF);
@@ -41,6 +41,8 @@ void    write_hud(t_map *map)
     mlx_string_put(map->mlx_ptr, map->wind, 1740, 660, 0xFFFFFF, "POV");
     mlx_string_put(map->mlx_ptr, map->wind, 1740, 690, 0xFFFFFF, " 2 ");    mlx_string_put(map->mlx_ptr, map->wind, 1740, 740, 0xFFFFFF, "CLOSE ");
     mlx_string_put(map->mlx_ptr, map->wind, 1740, 770, 0xFFFFFF, " esc ");
+	mlx_string_put(map->mlx_ptr, map->wind, 1740, 820, 0xFFFFFF, "RESET ");
+	mlx_string_put(map->mlx_ptr, map->wind, 1740, 850, 0xFFFFFF, " R ");
 }
 
 int red_cross(t_map *map)
@@ -116,9 +118,9 @@ int		key_act(int key, t_map *map)
 	}
 	if (key == 84)
 	{
-		map->alpha =  5 * M_PI / 6;
-		map->beta =  5 * M_PI / 6;
-		map->phi =  M_PI / 4;
+		map->alpha =  M_PI / 5;
+		map->beta =  M_PI / 10;
+		map->phi =  15 * M_PI / 8;
 	}
 	map->alpha = (cos(map->alpha) != 1 ? map->alpha : 0);
 	map->beta = (cos(map->beta) != 1 ? map->beta : 0);
