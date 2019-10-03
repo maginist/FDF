@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/03 15:58:21 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/03 16:29:59 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	write_pixel(t_map *map, int x, int y, int i)
 	z = -(i % map->max_x - map->max_x / 2) * sin(map->beta)
 		+ z * cos(map->beta);
 	z = x0;
-	x0 = (x0 * cos(map->phi) - y0 * sin(map->phi)) + map->move_x;
-	y0 = (z * sin(map->phi) + y0 * cos(map->phi)) + map->move_y;
+	x0 = (int)(x0 * cos(map->phi) - y0 * sin(map->phi)) + map->move_x;
+	y0 = (int)(z * sin(map->phi) + y0 * cos(map->phi)) + map->move_y;
 	if (y >= 0 && y <= 1080 && x >= 0 && x <= 1920)
 		*(int *)&map->canvas[y * map->size_line + (x * 4)] = map->color[i / map->max_x][i % map->max_x];
 }
@@ -97,17 +97,29 @@ int		key_act(int key, t_map *map)
 	if (key == 85)
 		map->height += 0.1;
 	if (key == 86)
-		map->beta -= M_PI / 24;
-	if (key == 89)
-		map->beta += M_PI / 24;
-	if (key == 91)
-		map->phi -= M_PI / 24;
-	if (key == 87)
-		map->phi += M_PI / 24;
-	if (key == 92)
 		map->alpha -= M_PI / 24;
-	if (key == 88)
+	if (key == 89)
 		map->alpha += M_PI / 24;
+	if (key == 87)
+		map->beta -= M_PI / 24;
+	if (key == 91)
+		map->beta += M_PI / 24;
+	if (key == 88)
+		map->phi -= M_PI / 24;
+	if (key == 92)
+		map->phi += M_PI / 24;
+	if (key == 15)
+	{
+		map->alpha = 0;
+		map->beta = 0;
+		map->phi = 0;
+	}
+	if (key == 84)
+	{
+		map->alpha =  5 * M_PI / 6;
+		map->beta =  5 * M_PI / 6;
+		map->phi =  M_PI / 4;
+	}
 	map->alpha = (cos(map->alpha) != 1 ? map->alpha : 0);
 	map->beta = (cos(map->beta) != 1 ? map->beta : 0);
 	map->phi = (cos(map->phi) != 1 ? map->phi : 0);
