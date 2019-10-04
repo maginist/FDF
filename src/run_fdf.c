@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/04 17:09:08 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/04 17:20:07 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,12 @@ void	run_fdf(t_map *map)
 	double	y;
 	double	z;
 
-	i = 0;
+	i = -1;
 	x = 0;
 	y = 0;
 	z = 0;
 	ft_bzero(map->canvas, 4 * 1920 * 1080);
-	while (i / map->max_x < map->max_y)
+	while (++i / map->max_x < map->max_y)
 	{
 		calc_alpha(&y, &z, i, map);
 		calc_beta(&x, &z, i, map);
@@ -146,7 +146,6 @@ void	run_fdf(t_map *map)
 			select_seg_sens(map, x, y, i + map->max_x);
 		if ((i + 1) % map->max_x)
 			select_seg_sens(map, x, y, i + 1);
-		i++;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->wind, map->img, 0, 0);
 	write_hud(map);
