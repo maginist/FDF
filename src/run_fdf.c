@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/04 12:38:42 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/04 16:10:59 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int		key_act(int key, t_map *map)
 	if (key == 125)
 		map->move_y += 5;
 	if (key == 83)
-		map->height -= 0.1;
+		map->height -= 0.05;
 	if (key == 85)
-		map->height += 0.1;
+		map->height += 0.05;
 	if (key == 86)
 		map->alpha -= M_PI / 24;
 	if (key == 89)
