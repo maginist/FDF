@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/04 16:10:50 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/04 16:45:38 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ int		main(int ac, char **av)
 	map->move_y = 540;
 	map->mlx_ptr = mlx_init();
 	map->wind = mlx_new_window(map->mlx_ptr, 1920, 1080, map->name);
-	map->img = mlx_new_image (map->mlx_ptr, 1920, 1080.);
-	map->canvas =  mlx_get_data_addr (map->img, &(map->bpp), &(map->size_line), &(map->bpp));
+	map->img = mlx_new_image(map->mlx_ptr, 1920, 1080.);
+	map->canvas = mlx_get_data_addr(map->img, &(map->bpp)
+	, &(map->size_line), &(map->bpp));
 	free_stocking(&(map->stock));
 	run_fdf(map);
 	free_map(map);

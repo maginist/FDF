@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 19:00:19 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/04 12:40:04 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/04 16:50:48 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	seg_top_left_writer(t_map *m, int x0, int y0, int i)
 			y0--;
 		}
 		if (y0 >= 0 && y0 <= 1080 && x0 >= 0 && x0 <= 1920)
-			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = calc_color(m, x0, y0, i);
+			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = calc_color(m
+			, x0, y0, i);
 	}
 }
 
@@ -64,7 +65,8 @@ void	seg_left_down_writer(t_map *m, int x0, int y0, int i)
 			y0++;
 		}
 		if (y0 >= 0 && y0 <= 1080 && x0 >= 0 && x0 <= 1920)
-			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = calc_color(m, x0, y0, i);
+			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = calc_color(m
+			, x0, y0, i);
 	}
 }
 
@@ -92,7 +94,8 @@ void	seg_down_right_writer(t_map *m, int x0, int y0, int i)
 			y0++;
 		}
 		if (y0 >= 0 && y0 <= 1080 && x0 >= 0 && x0 <= 1920)
-			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = calc_color(m, x0, y0, i);
+			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = calc_color(m
+			, x0, y0, i);
 	}
 }
 
@@ -120,7 +123,8 @@ void	seg_rigth_top_writer(t_map *m, int x0, int y0, int i)
 			y0--;
 		}
 		if (y0 >= 0 && y0 <= 1080 && x0 >= 0 && x0 <= 1920)
-			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = calc_color(m, x0, y0, i);
+			*(int *)&m->canvas[y0 * m->size_line + (x0 * 4)] = calc_color(m
+			, x0, y0, i);
 	}
 }
 
@@ -129,15 +133,18 @@ void	select_seg_sens(t_map *map, int x, int y, int i)
 	double	z;
 
 	map->y1 = ((i / map->max_x - map->max_y / 2) * cos(map->alpha)
-		- map->grid[i / map->max_x][i % map->max_x] * map->height * sin(map->alpha)) * map->scale;
+		- map->grid[i / map->max_x][i % map->max_x] * map->height
+		* sin(map->alpha)) * map->scale;
 	z = (i / map->max_x - map->max_y / 2) * sin(map->alpha)
-		+ map->grid[i / map->max_x][i % map->max_x] * map->height * cos(map->alpha);
+		+ map->grid[i / map->max_x][i % map->max_x] * map->height
+		* cos(map->alpha);
 	map->x1 = ((i % map->max_x - map->max_x / 2) * cos(map->beta)
 		+ z * sin(map->beta)) * map->scale;
 	z = -(i % map->max_x - map->max_x / 2) * sin(map->beta)
 		+ z * cos(map->beta);
 	z = map->x1;
-	map->x1 = (int)(map->x1 * cos(map->phi) - map->y1 * sin(map->phi)) + map->move_x;
+	map->x1 = (int)(map->x1 * cos(map->phi) - map->y1 * sin(map->phi))
+	+ map->move_x;
 	map->y1 = (int)(z * sin(map->phi) + map->y1 * cos(map->phi)) + map->move_y;
 	map->len_t = (int)sqrt(pow(map->x1 - x, 2) + pow(map->y1 - y, 2));
 	if (x < map->x1 && y >= map->y1)
