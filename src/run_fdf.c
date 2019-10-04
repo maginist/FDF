@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_fdf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:13:19 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/03 16:52:55 by maginist         ###   ########.fr       */
+/*   Updated: 2019/10/04 12:38:42 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void    write_hud(t_map *map)
     while (x++ < 1920)
         mlx_pixel_put(map->mlx_ptr, map->wind, x, y, 0x00FFFF);
     mlx_string_put(map->mlx_ptr, map->wind, 1730, 200, 0xFFFFFF, "~ HUD ~");
-    mlx_string_put(map->mlx_ptr, map->wind, 1730, 250, 0xFFFFFF, "ZOOM");
+    mlx_string_put(map->mlx_ptr, map->wind, 1740, 250, 0xFFFFFF, "ZOOM");
     mlx_string_put(map->mlx_ptr, map->wind, 1730, 270, 0xFFFFFF, " + / -");
     mlx_string_put(map->mlx_ptr, map->wind, 1730, 320, 0xFFFFFF, "MOVEMENT");
     mlx_string_put(map->mlx_ptr, map->wind, 1730, 340, 0xFFFFFF, " arrows");
@@ -34,12 +34,13 @@ void    write_hud(t_map *map)
     mlx_string_put(map->mlx_ptr, map->wind, 1730, 410, 0xFFFFFF, " x = 7 / 4");
     mlx_string_put(map->mlx_ptr, map->wind, 1730, 430, 0xFFFFFF, " y = 8 / 5");
     mlx_string_put(map->mlx_ptr, map->wind, 1730, 450, 0xFFFFFF, " z = 9 / 6");
-    mlx_string_put(map->mlx_ptr, map->wind, 1730, 500, 0xFFFFFF, "HEIGHT");
-    mlx_string_put(map->mlx_ptr, map->wind, 1730, 530, 0xFFFFFF, "1 / 3");
+    mlx_string_put(map->mlx_ptr, map->wind, 1730, 500, 0xFFFFFF, "- HEIGHT +");
+    mlx_string_put(map->mlx_ptr, map->wind, 1750, 530, 0xFFFFFF, "1 / 3");
     mlx_string_put(map->mlx_ptr, map->wind, 1730, 580, 0xFFFFFF, "COLOR");
     mlx_string_put(map->mlx_ptr, map->wind, 1730, 610, 0xFFFFFF, "  C");
     mlx_string_put(map->mlx_ptr, map->wind, 1740, 660, 0xFFFFFF, "POV");
-    mlx_string_put(map->mlx_ptr, map->wind, 1740, 690, 0xFFFFFF, " 2 ");    mlx_string_put(map->mlx_ptr, map->wind, 1740, 740, 0xFFFFFF, "CLOSE ");
+    mlx_string_put(map->mlx_ptr, map->wind, 1740, 690, 0xFFFFFF, " 2 ");
+	mlx_string_put(map->mlx_ptr, map->wind, 1740, 740, 0xFFFFFF, "CLOSE ");
     mlx_string_put(map->mlx_ptr, map->wind, 1740, 770, 0xFFFFFF, " esc ");
 	mlx_string_put(map->mlx_ptr, map->wind, 1740, 820, 0xFFFFFF, "RESET ");
 	mlx_string_put(map->mlx_ptr, map->wind, 1740, 850, 0xFFFFFF, " R ");
@@ -54,21 +55,6 @@ int red_cross(t_map *map)
 
 void	write_pixel(t_map *map, int x, int y, int i)
 {
-	double	x0;
-	double	y0;
-	double	z;
-
-	y0 = ((i / map->max_x - map->max_y / 2) * cos(map->alpha)
-		- map->grid[i / map->max_x][i % map->max_x] * map->height * sin(map->alpha)) * map->scale;
-	z = (i / map->max_x - map->max_y / 2) * sin(map->alpha)
-		+ map->grid[i / map->max_x][i % map->max_x] * map->height * cos(map->alpha);
-	x0 = ((i % map->max_x - map->max_x / 2) * cos(map->beta)
-		+ z * sin(map->beta)) * map->scale;
-	z = -(i % map->max_x - map->max_x / 2) * sin(map->beta)
-		+ z * cos(map->beta);
-	z = x0;
-	x0 = (int)(x0 * cos(map->phi) - y0 * sin(map->phi)) + map->move_x;
-	y0 = (int)(z * sin(map->phi) + y0 * cos(map->phi)) + map->move_y;
 	if (y >= 0 && y <= 1080 && x >= 0 && x <= 1920)
 		*(int *)&map->canvas[y * map->size_line + (x * 4)] = map->color[i / map->max_x][i % map->max_x];
 }
@@ -140,18 +126,19 @@ void	run_fdf(t_map *map)
 	ft_bzero(map->canvas, 4 * 1920 * 1080);
 	while (i / map->max_x < map->max_y)
 	{
-	y = ((i / map->max_x - map->max_y / 2) * cos(map->alpha)
+		y = ((i / map->max_x - map->max_y / 2) * cos(map->alpha)
 		- map->grid[i / map->max_x][i % map->max_x] * map->height * sin(map->alpha)) * map->scale;
-	z = (i / map->max_x - map->max_y / 2) * sin(map->alpha)
+		z = (i / map->max_x - map->max_y / 2) * sin(map->alpha)
 		+ map->grid[i / map->max_x][i % map->max_x] * map->height * cos(map->alpha);
-	x = ((i % map->max_x - map->max_x / 2) * cos(map->beta)
+		x = ((i % map->max_x - map->max_x / 2) * cos(map->beta)
 		+ z * sin(map->beta)) * map->scale;
-	z = -(i % map->max_x - map->max_x / 2) * sin(map->beta)
+		z = -(i % map->max_x - map->max_x / 2) * sin(map->beta)
 		+ z * cos(map->beta);
-	z = x;
-	x = (x * cos(map->phi) - y * sin(map->phi)) + map->move_x;
-	y = (z * sin(map->phi) + y * cos(map->phi)) + map->move_y;
+		z = x;
+		x = (x * cos(map->phi) - y * sin(map->phi)) + map->move_x;
+		y = (z * sin(map->phi) + y * cos(map->phi)) + map->move_y;
 		write_pixel(map, x, y, i);
+		map->col_0 = map->color[i / map->max_x][i % map->max_x];
 		if (i / map->max_x < map->max_y - 1)
 			select_seg_sens(map, x, y, i + map->max_x);
 		if ((i + 1) % map->max_x)

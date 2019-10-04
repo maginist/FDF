@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maginist <maginist@student.42.fr>          +#+  +:+       +#+         #
+#    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/21 10:08:34 by maginist          #+#    #+#              #
-#    Updated: 2019/09/26 19:06:22 by maginist         ###   ########.fr        #
+#    Updated: 2019/10/04 12:39:21 by floblanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_NAME =	run_fdf.c 		\
 			parcing_arg.c	\
 			main.c			\
 			algo_segment.c 	\
+			calc_color.c	\
 
 SRC_PATH = ./src/
 

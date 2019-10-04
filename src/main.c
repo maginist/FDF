@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/03 15:51:52 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/04 12:30:35 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	init_map(t_map *map)
 	map->alpha = 0;
 	map->beta = 0;
 	map->phi = 0;
+	map->col_0 = 0;
+	map->len_t = 0;
 }
 
 int		main(int ac, char **av)

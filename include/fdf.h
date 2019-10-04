@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/03 15:44:02 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/04 12:30:11 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct		s_map
 	double			height;
 	int				max_x;
 	int				max_y;
+	int				col_0;
+	int				len_t;
 	double			x1;
 	double			y1;
 	int				dx;
@@ -62,5 +64,5 @@ int					parsing_arg(char **av, t_map *map);
 void				run_fdf(t_map *map);
 void				select_seg_sens(t_map *map, int x, int y, int i);
 int					free_map(t_map *map);
-
+int					calc_color(t_map *m, int x0, int y0, int i);
 #endif
