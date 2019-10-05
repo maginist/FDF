@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 12:05:06 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/05 14:24:52 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/05 14:59:33 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		key_act(int key, t_map *map)
 		map->move_x -= 10;
 	if (key == 126 && map->move_y - 1 > 0)
 		map->move_y -= 10;
-	if (key == 136)
+	if (key == 124)
 		map->move_x += 10;
 	if (key == 125)
 		map->move_y += 10;
