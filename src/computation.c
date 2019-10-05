@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 11:45:27 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/04 17:15:58 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/05 12:29:39 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,13 @@ void	calc_beta(double *x, double *z, int i, t_map *map)
 		+ *z * sin(map->beta)) * map->scale;
 	*z = -(i % map->max_x - map->max_x / 2) * sin(map->beta)
 		+ *z * cos(map->beta);
+}
+
+void	calc_phi(double *x, double *y, int i, t_map *map)
+{
+	int	x_save;
+
+	x_save = *x;
+	*x = (x_save * cos(map->phi) - *y * sin(map->phi)) + map->move_x;
+	*y = (x_save * sin(map->phi) + *y * cos(map->phi)) + map->move_y;
 }

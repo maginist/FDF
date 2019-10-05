@@ -6,7 +6,7 @@
 #    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/21 10:08:34 by maginist          #+#    #+#              #
-#    Updated: 2019/10/04 17:01:44 by floblanc         ###   ########.fr        #
+#    Updated: 2019/10/05 12:16:17 by floblanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@ NAME = fdf
 
 SRC_NAME =	run_fdf.c 		\
 			parcing_arg.c	\
+			parcing_arg2.c	\
 			main.c			\
 			algo_segment.c 	\
 			computation.c	\
+			control_setup.c	\
 
 SRC_PATH = ./src/
 

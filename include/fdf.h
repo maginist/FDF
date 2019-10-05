@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:11:20 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/04 17:09:34 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/05 12:24:24 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,10 @@ int					free_map(t_map *map);
 int					calc_color(t_map *m, int x0, int y0, int i);
 void				calc_alpha(double *y, double *z, int i, t_map *map);
 void				calc_beta(double *x, double *z, int i, t_map *map);
+void				calc_phi(double *x, double *y, int i, t_map *map);
+int					ft_error(char *str);
+int					parse_split(t_stock *cur, int letter, int word);
+int					key_act(int key, t_map *map);
+void				run_fdf(t_map *map);
+void				write_hud(t_map *map);
 #endif

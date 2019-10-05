@@ -6,11 +6,17 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/04 16:45:38 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/05 11:31:33 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+
+int		ft_error(char *str)
+{
+	write(2, str, ft_strlen(str));
+	return (0);
+}
 
 void	free_stocking(t_stock **start)
 {
@@ -66,7 +72,7 @@ int		main(int ac, char **av)
 	t_map	*map;
 
 	if (ac < 2)
-		return (0);
+		return (ft_error("Usage : ./fdf <file.fdf>\n"));
 	if (!(map = (t_map*)malloc(sizeof(t_map) * 1)))
 		return (0);
 	init_map(map);
