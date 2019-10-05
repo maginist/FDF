@@ -6,7 +6,7 @@
 #    By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/21 10:08:34 by maginist          #+#    #+#              #
-#    Updated: 2019/10/05 12:16:17 by floblanc         ###   ########.fr        #
+#    Updated: 2019/10/05 14:42:44 by floblanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ FDF_FLAGS = -I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -fr
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra
 
 # Colors
 CK = $'\033[30m$'
@@ -68,7 +68,7 @@ $(NAME) : $(LIBFT)/$(LIBFTA) $(OBJ)
 		@echo "|    COMPILING FDF       |"
 		@echo "$(_RED)|_-_-_-_-_-_-_-_-_-_-_-_-|$(_END)"
 		@echo "\n"
-		@$(CC) $(FDF_FLAGS) -o $(NAME) $(OBJ) $(LIBFT)/$(LIBFTA)
+		@$(CC) $(FDF_FLAGS) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)/$(LIBFTA)
 		@echo "$(_GREEN)[ FDF DONE ]$(_END)"
 
 clean :
@@ -86,4 +86,4 @@ re : fclean all
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) -I $(LIBFTINCLUDES) -I $(INC_PATH) -c $< -o $@
+	@$(CC) $(CFLAGS) -I $(LIBFTINCLUDES) -I $(INC_PATH) -c $< -o $@

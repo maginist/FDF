@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 12:05:06 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/05 12:19:09 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/05 14:24:52 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,19 @@ void	write_hud(t_map *map)
 	write_hud2(map);
 }
 
-void	reset_act(t_map *map)
+int		key_act3(int key, t_map *map)
 {
-	map->alpha = 0;
-	map->beta = 0;
-	map->phi = 0;
-	map->height = 1;
-	map->scale = (970 / map->max_x >= 540 / map->max_y ? 970
-		/ map->max_x : 540 / map->max_y);
-	map->move_x = 970;
-	map->move_y = 540;
-}
-
-int		key_act2(int key, t_map *map)
-{
-	if (key == 89)
-		map->alpha += M_PI / 24;
-	if (key == 87)
-		map->beta -= M_PI / 24;
-	if (key == 91)
-		map->beta += M_PI / 24;
-	if (key == 88)
-		map->phi -= M_PI / 24;
-	if (key == 92)
-		map->phi += M_PI / 24;
 	if (key == 15)
-		reset_act(map);
+	{
+		map->alpha = 0;
+		map->beta = 0;
+		map->phi = 0;
+		map->height = 1;
+		map->scale = (970 / map->max_x >= 540 / map->max_y ? 970
+			/ map->max_x : 540 / map->max_y);
+		map->move_x = 970;
+		map->move_y = 540;	
+	}
 	if (key == 84)
 	{
 		map->alpha = M_PI / 5;
@@ -89,6 +76,21 @@ int		key_act2(int key, t_map *map)
 	map->phi = (cos(map->phi) != 1 ? map->phi : 0);
 	run_fdf(map);
 	return (1);
+}
+
+int		key_act2(int key, t_map *map)
+{
+	if (key == 89)
+		map->alpha += M_PI / 36;
+	if (key == 87)
+		map->beta -= M_PI / 36;
+	if (key == 91)
+		map->beta += M_PI / 36;
+	if (key == 88)
+		map->phi -= M_PI / 36;
+	if (key == 92)
+		map->phi += M_PI / 36;
+	return (key_act3(key, map));
 }
 
 int		key_act(int key, t_map *map)
@@ -104,18 +106,18 @@ int		key_act(int key, t_map *map)
 	if (key == 78 && map->scale - 1 > 0)
 		map->scale--;
 	if (key == 123 && map->move_x - 1 > 0)
-		map->move_x -= 5;
+		map->move_x -= 10;
 	if (key == 126 && map->move_y - 1 > 0)
-		map->move_y -= 5;
-	if (key == 124)
-		map->move_x += 5;
+		map->move_y -= 10;
+	if (key == 136)
+		map->move_x += 10;
 	if (key == 125)
-		map->move_y += 5;
+		map->move_y += 10;
 	if (key == 83)
 		map->height -= 0.05;
 	if (key == 85)
 		map->height += 0.05;
 	if (key == 86)
-		map->alpha -= M_PI / 24;
+		map->alpha -= M_PI / 36;
 	return (key_act2(key, map));
 }
