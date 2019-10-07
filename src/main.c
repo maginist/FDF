@@ -3,19 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 10:13:14 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/07 11:28:48 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/07 11:39:34 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int		ft_error(char *str)
+int		ft_error(char *error, int ret, char *after, int line)
 {
-	write(2, str, ft_strlen(str));
-	return (0);
+	char *nb;
+
+	write(2, error, ft_strlen(error));
+	if (line > 0)
+	{
+		nb = ft_itoa(line);
+		write(2, nb, ft_strlen(nb));
+		free(nb);
+	}
+	if (after)
+		write(2, after, ft_strlen(after));
+	return (ret);
 }
 
 void	free_stocking(t_stock **start)
@@ -72,7 +82,7 @@ int		main(int ac, char **av)
 	t_map	*map;
 
 	if (ac < 2)
-		return (ft_error("Usage : ./fdf <file.fdf>\n"));
+		return (ft_error("Usage : ./fdf <file.fdf>\n", 0, 0, 0));
 	if (!(map = (t_map*)malloc(sizeof(t_map) * 1)))
 		return (0);
 	init_map(map);

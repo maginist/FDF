@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maginist <maginist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/07 11:31:01 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/07 11:49:52 by maginist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		init_grid(t_map *map, char *file)
 	return (1);
 }
 
-int		parse_and_stock(char *line, t_map *map, int count)
+int		parse_and_stock(char *line, t_map *map, int ct)
 {
 	t_stock	*new;
 	t_stock	*cur;
@@ -78,7 +78,7 @@ int		parse_and_stock(char *line, t_map *map, int count)
 	new->data = ft_strsplit(line, ' ');
 	new->next = 0;
 	if ((new->width = ft_tab2size((void**)(new->data))) > 0x7FFFFFFF)
-		return (ft_error("Some line is too long : > max int\n"));
+		return (ft_error("Line ", 0, " is too long : > max int\n", ct));
 	if (!(map->stock))
 	{
 		map->stock = new;
@@ -87,7 +87,7 @@ int		parse_and_stock(char *line, t_map *map, int count)
 	else
 	{
 		if (new->width != map->max_x)
-			return (ft_error("Bad line length, not the same for all\n"));
+			return (ft_error("Line ", 0, ", don't have the good lenght\n", ct));
 		cur = map->stock;
 		while (cur->next)
 			cur = cur->next;
@@ -109,7 +109,7 @@ int		gest_fdf_file(char *file, t_map *map)
 	i = ft_strlen(file);
 	line = 0;
 	if ((fd = open(file, O_RDONLY)) == -1)
-		return (ft_error("File does'nt exist\n"));
+		return (ft_error("File does'nt exist\n", 0, 0, 0));
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -122,7 +122,7 @@ int		gest_fdf_file(char *file, t_map *map)
 	}
 	ft_strdel(&line);
 	if (!(map->stock) || !(init_grid(map, file)))
-		return (ft_error("Empty file\n"));
+		return (ft_error("Empty file\n", 0, 0, 0));
 	return (1);
 }
 
@@ -135,7 +135,7 @@ int		parsing_arg(char **av, t_map *map)
 	{
 		if (ft_strlen(av[i]) < 5
 			|| ft_strcmp(&(av[i][ft_strlen(av[i]) - 4]), ".fdf"))
-			return (ft_error("Wrong file format, it must be .fdf\n"));
+			return (ft_error("Wrong file format, it must be .fdf\n", 0, 0, 0));
 		else if (!(gest_fdf_file(av[i], map)))
 			return (0);
 		i++;
