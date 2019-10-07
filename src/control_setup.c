@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 12:05:06 by floblanc          #+#    #+#             */
-/*   Updated: 2019/10/05 14:59:33 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/07 11:04:00 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		key_act3(int key, t_map *map)
 		map->scale = (970 / map->max_x >= 540 / map->max_y ? 970
 			/ map->max_x : 540 / map->max_y);
 		map->move_x = 970;
-		map->move_y = 540;	
+		map->move_y = 540;
 	}
 	if (key == 84)
 	{
@@ -80,6 +80,9 @@ int		key_act3(int key, t_map *map)
 
 int		key_act2(int key, t_map *map)
 {
+	int	i;
+	int	mod;
+
 	if (key == 89)
 		map->alpha += M_PI / 36;
 	if (key == 87)
@@ -90,6 +93,17 @@ int		key_act2(int key, t_map *map)
 		map->phi -= M_PI / 36;
 	if (key == 92)
 		map->phi += M_PI / 36;
+	if (key == 8)
+	{
+		i = 0;
+		while (i / map->max_x < map->max_y)
+		{
+			mod = map->color[i / map->max_x][i % map->max_x] % 256;
+			map->color[i / map->max_x][i % map->max_x] /= 256;
+			map->color[i / map->max_x][i % map->max_x] += mod * 0x10000;
+			i++;
+		}
+	}
 	return (key_act3(key, map));
 }
 
