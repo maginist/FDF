@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:56:53 by maginist          #+#    #+#             */
-/*   Updated: 2019/10/05 11:57:51 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/07 11:31:01 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		init_grid(t_map *map, char *file)
 	return (1);
 }
 
-int		parse_and_stock(char *line, t_map *map)
+int		parse_and_stock(char *line, t_map *map, int count)
 {
 	t_stock	*new;
 	t_stock	*cur;
@@ -77,7 +77,8 @@ int		parse_and_stock(char *line, t_map *map)
 		return (0);
 	new->data = ft_strsplit(line, ' ');
 	new->next = 0;
-	new->width = ft_tab2size((void**)(new->data));
+	if ((new->width = ft_tab2size((void**)(new->data))) > 0x7FFFFFFF)
+		return (ft_error("Some line is too long : > max int\n"));
 	if (!(map->stock))
 	{
 		map->stock = new;
@@ -99,10 +100,12 @@ int		parse_and_stock(char *line, t_map *map)
 int		gest_fdf_file(char *file, t_map *map)
 {
 	int		i;
+	int		count;
 	int		fd;
 	char	*line;
 
 	map->stock = 0;
+	count = 0;
 	i = ft_strlen(file);
 	line = 0;
 	if ((fd = open(file, O_RDONLY)) == -1)
@@ -110,7 +113,8 @@ int		gest_fdf_file(char *file, t_map *map)
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (parse_and_stock(line, map) == 0)
+		count++;
+		if (parse_and_stock(line, map, count) == 0)
 			map->error = 1;
 		ft_strdel(&line);
 		if (map->error == 1)
